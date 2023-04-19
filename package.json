@@ -1,0 +1,22 @@
+{
+  "name": "m10c-team-profile-generator",
+  "version": "1.0.0",
+  "description": "A command-line application that generates a team profile HTML page.",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/m10c-team-profile-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/your-username/m10c-team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/your-username/m10c-team-profile-generator#readme"
+}
