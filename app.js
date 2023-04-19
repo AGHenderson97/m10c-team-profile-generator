@@ -1,3 +1,4 @@
+const generateHTML = require('./generateHTML');
 const inquirer = require('inquirer');
 
 const promptManager = async () => {
@@ -92,13 +93,50 @@ const promptManager = async () => {
       },
     ];
   
-    const answers = await inquirer.prompt(internQuestions);
-  
-    return {
-      name: answers.name,
-      id: answers.id,
-      email: answers.email,
-      school: answers.school,
-    };
+    const teamMembers = [];
+
+  const managerAnswers = await inquirer.prompt(managerQuestions);
+  const manager = {
+    name: managerAnswers.name,
+    id: managerAnswers.id,
+    email: managerAnswers.email,
+    officeNumber: managerAnswers.officeNumber,
+    role: 'Manager',
   };
-  
+  teamMembers.push(manager);
+
+  let moreEngineers = true;
+  while (moreEngineers) {
+    const engineerAnswers = await inquirer.prompt(engineerQuestions);
+    const engineer = {
+      name: engineerAnswers.name,
+      id: engineerAnswers.id,
+      email: engineerAnswers.email,
+      github: engineerAnswers.github,
+      role: 'Engineer',
+    };
+    teamMembers.push(engineer);
+
+    const { addMore } = await inquirer.prompt({
+      type: 'confirm',
+      name: 'addMore',
+      message: 'Would you like to add another engineer?',
+    });
+
+    moreEngineers = addMore;
+  }
+
+  let moreInterns = true;
+  while (moreInterns) {
+    const internAnswers = await inquirer.prompt(internQuestions);
+    const intern = {
+      name: internAnswers.name,
+      id: internAnswers.id,
+      email: internAnswers.email,
+      school: internAnswers.school,
+      role: 'Intern',
+    };
+    teamMembers.push(intern);
+
+    const { addMore }
+
