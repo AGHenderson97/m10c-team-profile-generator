@@ -58,6 +58,9 @@ function generateCards(team) {
   return cards;
 }
 
-module.exports = generateMarkdown;
+export { generateMarkdown, generateCards };
+
+
+
 
   
