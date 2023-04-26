@@ -1,10 +1,12 @@
 const fs = require('fs');
 const util = require('util');
 const path = require('path');
+const { createRequire } = require('module');
+const requireESM = createRequire(import.meta.url);
 let inquirer;
 
 (async () => {
-  inquirer = await import('inquirer');
+  inquirer = await requireESM('inquirer').then(module => module.default);
 })();
 
 const Manager = require('./lib/Manager');
@@ -13,7 +15,6 @@ const Intern = require('./lib/Intern');
 const generateHTML = require(path.resolve(__dirname, './src/generateHTML'));
 
 const teamMembers = [];
-
 
 const createManager = async () => {
   console.log("Please build your team");
