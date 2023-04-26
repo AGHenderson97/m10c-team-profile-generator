@@ -1,17 +1,10 @@
 const fs = require('fs');
 const util = require('util');
-const inquirer = await import('inquirer');
+const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/generateHTML');
-
-// ... rest of the code
-
-
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
 
 const teamMembers = [];
 
@@ -152,7 +145,7 @@ const createTeam = async () => {
     }
   }
 
-  const html = generateHtml();
+  const html = generateHTML(teamMembers);
 
   fs.writeFile('./dist/team.html', html, (err) => {
     if (err) {
