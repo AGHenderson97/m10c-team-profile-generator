@@ -1,12 +1,20 @@
 const fs = require('fs');
 const util = require('util');
-const inquirer = require('inquirer');
+let inquirer;
+
+(async () => {
+  inquirer = await import('inquirer');
+})();
+
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/generateHTML');
 
 const teamMembers = [];
+
+// ... rest of the code
+
 
 const createManager = async () => {
   console.log("Please build your team");
