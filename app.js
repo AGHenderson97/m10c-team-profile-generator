@@ -162,3 +162,4 @@ const createTeam = async () => {
     }
   });
 };
+createTeam();
