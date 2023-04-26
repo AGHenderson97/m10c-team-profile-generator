@@ -3,7 +3,7 @@ import inquirer from 'inquirer';
 import Manager from './lib/Manager.js';
 import Engineer from './lib/Engineer.js';
 import Intern from './lib/Intern.js';
-import generateHTML from './src/generateHTML.js';
+import generateHTML from './src/generateHTML.mjs';
 
 const employees = [];
 
