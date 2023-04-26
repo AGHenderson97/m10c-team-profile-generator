@@ -2,17 +2,17 @@ const generateCards = (employees) => {
   const cards = employees.map((employee) => {
     let roleInfo;
     let roleIcon;
-    switch (employee.role) {
+    switch (employee.getRole()) {
       case 'Manager':
-        roleInfo = `Office Number: ${employee.officeNumber}`;
+        roleInfo = `Office Number: ${employee.getOfficeNumber()}`;
         roleIcon = `<i class="fas fa-mug-hot"></i>`;
         break;
       case 'Engineer':
-        roleInfo = `GitHub: <a href="https://github.com/${employee.github}" target="_blank">${employee.github}</a>`;
+        roleInfo = `GitHub: <a href="https://github.com/${employee.getGithub()}" target="_blank">${employee.getGithub()}</a>`;
         roleIcon = `<i class="fas fa-glasses"></i>`;
         break;
       case 'Intern':
-        roleInfo = `School: ${employee.school}`;
+        roleInfo = `School: ${employee.getSchool()}`;
         roleIcon = `<i class="fas fa-user-graduate"></i>`;
         break;
       default:
@@ -22,19 +22,20 @@ const generateCards = (employees) => {
     return `
       <div class="card">
         <div class="card-header">
-          <h2>${employee.name}</h2>
-          <h3>${roleIcon} ${employee.role}</h3>
+          <h2>${employee.getName()}</h2>
+          <h3>${roleIcon} ${employee.getRole()}</h3>
         </div>
         <div class="card-body">
           <ul>
-            <li>ID: ${employee.id}</li>
-            <li>Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
+            <li>ID: ${employee.getId()}</li>
+            <li>Email: <a href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></li>
             <li>${roleInfo}</li>
           </ul>
         </div>
       </div>
     `;
   });
+
   return cards.join('');
 };
 
@@ -63,4 +64,4 @@ const generateHTML = (employees) => {
   return html;
 };
 
-module.exports = generateHTML;
+export default generateHTML;
