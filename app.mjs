@@ -1,166 +1,136 @@
-const fs = require('fs');
-const util = require('util');
-const path = require('path');
-const { createRequire } = require('module');
-const requireESM = createRequire(import.meta.url);
-let inquirer;
+import fs from 'fs';
+import inquirer from 'inquirer';
+import Manager from './src/Manager.js';
+import Engineer from './src/Engineer.js';
+import Intern from './src/Intern.js';
+import generateHTML from './src/generateHTML.js';
 
-(async () => {
-  inquirer = await requireESM('inquirer').then(module => module.default);
-})();
+const employees = [];
 
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
-const generateHTML = require(path.resolve(__dirname, './src/generateHTML'));
-
-const teamMembers = [];
-
-const createManager = async () => {
-  console.log("Please build your team");
-  const answers = await inquirer.prompt([
+async function createManager() {
+  const managerQuestions = [
     {
-      type: "input",
-      name: "name",
-      message: "What is the manager's name?",
+      type: 'input',
+      name: 'name',
+      message: "What is the team manager's name?",
     },
     {
-      type: "input",
-      name: "id",
-      message: "What is the manager's ID?",
+      type: 'input',
+      name: 'id',
+      message: "What is the team manager's ID?",
     },
     {
-      type: "input",
-      name: "email",
-      message: "What is the manager's email address?",
+      type: 'input',
+      name: 'email',
+      message: "What is the team manager's email?",
     },
     {
-      type: "input",
-      name: "officeNumber",
-      message: "What is the manager's office number?",
-    }
-  ]);
+      type: 'input',
+      name: 'officeNumber',
+      message: "What is the team manager's office number?",
+    },
+  ];
 
-  const manager = new Manager(
-    answers.name,
-    answers.id,
-    answers.email,
-    answers.officeNumber
-  );
+  const answers = await inquirer.prompt(managerQuestions);
+  const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+  employees.push(manager);
+}
 
-  teamMembers.push(manager);
-
-  console.log("Manager created!");
-};
-
-const createEngineer = async () => {
-  const answers = await inquirer.prompt([
+async function createEngineer() {
+  const engineerQuestions = [
     {
-      type: "input",
-      name: "name",
+      type: 'input',
+      name: 'name',
       message: "What is the engineer's name?",
     },
     {
-      type: "input",
-      name: "id",
+      type: 'input',
+      name: 'id',
       message: "What is the engineer's ID?",
     },
     {
-      type: "input",
-      name: "email",
-      message: "What is the engineer's email address?",
+      type: 'input',
+      name: 'email',
+      message: "What is the engineer's email?",
     },
     {
-      type: "input",
-      name: "github",
+      type: 'input',
+      name: 'github',
       message: "What is the engineer's GitHub username?",
-    }
-  ]);
+    },
+  ];
 
-  const engineer = new Engineer(
-    answers.name,
-    answers.id,
-    answers.email,
-    answers.github
-  );
+  const answers = await inquirer.prompt(engineerQuestions);
+  const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+  employees.push(engineer);
+}
 
-  teamMembers.push(engineer);
-
-  console.log("Engineer created!");
-};
-
-const createIntern = async () => {
-  const answers = await inquirer.prompt([
+async function createIntern() {
+  const internQuestions = [
     {
-      type: "input",
-      name: "name",
+      type: 'input',
+      name: 'name',
       message: "What is the intern's name?",
     },
     {
-      type: "input",
-      name: "id",
+      type: 'input',
+      name: 'id',
       message: "What is the intern's ID?",
     },
     {
-      type: "input",
-      name: "email",
-      message: "What is the intern's email address?",
+      type: 'input',
+      name: 'email',
+      message: "What is the intern's email?",
     },
     {
-      type: "input",
-      name: "school",
-      message: "What is the name of the intern's school?",
-    }
-  ]);
+      type: 'input',
+      name: 'school',
+      message: "What is the intern's school?",
+    },
+  ];
 
-  const intern = new Intern(
-    answers.name,
-    answers.id,
-    answers.email,
-    answers.school
-  );
+  const answers = await inquirer.prompt(internQuestions);
+  const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+  employees.push(intern);
+}
 
-  teamMembers.push(intern);
-
-  console.log("Intern created!");
-};
-
-const createTeam = async () => {
+async function createTeam() {
   await createManager();
 
-  let done = false;
+  let inProgress = true;
 
-  while (!done) {
-    const answers = await inquirer.prompt([
+  while (inProgress) {
+    const nextAction = await inquirer.prompt([
       {
-        type: "list",
-        name: "employeeType",
-        message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "Intern", "I don't want to add any more team members"]
-      }
+        type: 'list',
+        name: 'action',
+        message: 'What would you like to do next?',
+        choices: ['Add Engineer', 'Add Intern', 'Finish building my team'],
+      },
     ]);
 
-    switch (answers.employeeType) {
-      case "Engineer":
+    switch (nextAction.action) {
+      case 'Add Engineer':
         await createEngineer();
         break;
-      case "Intern":
+      case 'Add Intern':
         await createIntern();
         break;
-      default:
-        done = true;
+      case 'Finish building my team':
+        inProgress = false;
         break;
     }
   }
 
-  const html = generateHTML(teamMembers);
-
-  fs.writeFile('./dist/team.html', html, (err) => {
+  const html = generateHTML(employees);
+  fs.writeFile('output/team.html', html, (err) => {
     if (err) {
       console.error(err);
     } else {
-      console.log('Success!');
+      console.log('Successfully created team.html in the output folder.');
     }
   });
-};
+}
+
 createTeam();
+``
