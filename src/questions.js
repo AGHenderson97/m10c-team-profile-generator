@@ -127,10 +127,14 @@ const managerQuestions = [
       }
     },
     {
-      type: 'input',
-      name: 'school',
-      message: 'What is the name of the intern\'s school?',
-      validate: function (input) {
-        if (!input) {
-          return 'Please enter a school name'
-  
+        type: 'input',
+        name: 'school',
+        message: 'What is the name of the intern\'s school?',
+        validate: function (input) {
+          if (!input) {
+            return 'Please enter a school name.';
+          }
+          return true;
+        }
+      },
+    ]
