@@ -27,14 +27,14 @@ test("gets engineer's email", () => {
   expect(engineer.getEmail()).toEqual(expect.any(String));
 });
 
-test("gets engineer's role", () => {
-  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
-
-  expect(engineer.getRole()).toEqual('Engineer');
-});
-
 test("gets engineer's GitHub username", () => {
   const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
 
   expect(engineer.getGithub()).toEqual(expect.any(String));
+});
+
+test("gets engineer's role", () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
+
+  expect(engineer.getRole()).toEqual('Engineer');
 });
