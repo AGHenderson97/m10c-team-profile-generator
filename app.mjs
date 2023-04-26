@@ -1,8 +1,8 @@
 import fs from 'fs';
 import inquirer from 'inquirer';
-import Manager from './src/Manager.js';
-import Engineer from './src/Engineer.js';
-import Intern from './src/Intern.js';
+import Manager from './lib/Manager.js';
+import Engineer from './lib/Engineer.js';
+import Intern from './lib/Intern.js';
 import generateHTML from './src/generateHTML.js';
 
 const employees = [];
