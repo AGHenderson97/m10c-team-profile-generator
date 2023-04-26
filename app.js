@@ -1,142 +1,156 @@
-const generateHTML = require('./generateHTML');
 const inquirer = require('inquirer');
+const fs = require('fs');
 
-const promptManager = async () => {
-    const managerQuestions = [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'What is the team manager\'s name?',
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: 'What is the team manager\'s employee ID?',
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: 'What is the team manager\'s email address?',
-      },
-      {
-        type: 'input',
-        name: 'officeNumber',
-        message: 'What is the team manager\'s office number?',
-      },
-    ];
-  
-    const answers = await inquirer.prompt(managerQuestions);
-  
-    return {
-      name: answers.name,
-      id: answers.id,
-      email: answers.email,
-      officeNumber: answers.officeNumber,
-    };
-  };
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
-  const promptEngineer = async () => {
-    const engineerQuestions = [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'What is the engineer\'s name?',
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: 'What is the engineer\'s employee ID?',
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: 'What is the engineer\'s email address?',
-      },
-      {
-        type: 'input',
-        name: 'github',
-        message: 'What is the engineer\'s GitHub username?',
-      },
-    ];
-  
-    const answers = await inquirer.prompt(engineerQuestions);
-  
-    return {
-      name: answers.name,
-      id: answers.id,
-      email: answers.email,
-      github: answers.github,
-    };
-  };
-  
-  const promptIntern = async () => {
-    const internQuestions = [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'What is the intern\'s name?',
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: 'What is the intern\'s employee ID?',
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: 'What is the intern\'s email address?',
-      },
-      {
-        type: 'input',
-        name: 'school',
-        message: 'What is the intern\'s school name?',
-      },
-    ];
-  
-    const teamMembers = [];
+const teamMembers = [];
 
-  const managerAnswers = await inquirer.prompt(managerQuestions);
-  const manager = {
-    name: managerAnswers.name,
-    id: managerAnswers.id,
-    email: managerAnswers.email,
-    officeNumber: managerAnswers.officeNumber,
-    role: 'Manager',
-  };
+const createManager = async () => {
+  console.log("Please build your team");
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is the manager's name?",
+    },
+    {
+      type: "input",
+      name: "id",
+      message: "What is the manager's ID?",
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "What is the manager's email address?",
+    },
+    {
+      type: "input",
+      name: "officeNumber",
+      message: "What is the manager's office number?",
+    }
+  ]);
+
+  const manager = new Manager(
+    answers.name,
+    answers.id,
+    answers.email,
+    answers.officeNumber
+  );
+
   teamMembers.push(manager);
 
-  let moreEngineers = true;
-  while (moreEngineers) {
-    const engineerAnswers = await inquirer.prompt(engineerQuestions);
-    const engineer = {
-      name: engineerAnswers.name,
-      id: engineerAnswers.id,
-      email: engineerAnswers.email,
-      github: engineerAnswers.github,
-      role: 'Engineer',
-    };
-    teamMembers.push(engineer);
+  console.log("Manager created!");
+};
 
-    const { addMore } = await inquirer.prompt({
-      type: 'confirm',
-      name: 'addMore',
-      message: 'Would you like to add another engineer?',
-    });
+const createEngineer = async () => {
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is the engineer's name?",
+    },
+    {
+      type: "input",
+      name: "id",
+      message: "What is the engineer's ID?",
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "What is the engineer's email address?",
+    },
+    {
+      type: "input",
+      name: "github",
+      message: "What is the engineer's GitHub username?",
+    }
+  ]);
 
-    moreEngineers = addMore;
+  const engineer = new Engineer(
+    answers.name,
+    answers.id,
+    answers.email,
+    answers.github
+  );
+
+  teamMembers.push(engineer);
+
+  console.log("Engineer created!");
+};
+
+const createIntern = async () => {
+  const answers = await inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is the intern's name?",
+    },
+    {
+      type: "input",
+      name: "id",
+      message: "What is the intern's ID?",
+    },
+    {
+      type: "input",
+      name: "email",
+      message: "What is the intern's email address?",
+    },
+    {
+      type: "input",
+      name: "school",
+      message: "What is the name of the intern's school?",
+    }
+  ]);
+
+  const intern = new Intern(
+    answers.name,
+    answers.id,
+    answers.email,
+    answers.school
+  );
+
+  teamMembers.push(intern);
+
+  console.log("Intern created!");
+};
+
+const createTeam = async () => {
+  await createManager();
+
+  let done = false;
+
+  while (!done) {
+    const answers = await inquirer.prompt([
+      {
+        type: "list",
+        name: "employeeType",
+        message: "Which type of team member would you like to add?",
+        choices: ["Engineer", "Intern", "I don't want to add any more team members"]
+      }
+    ]);
+
+    switch (answers.employeeType) {
+      case "Engineer":
+        await createEngineer();
+        break;
+      case "Intern":
+        await createIntern();
+        break;
+      default:
+        done = true;
+        break;
+    }
   }
 
-  let moreInterns = true;
-  while (moreInterns) {
-    const internAnswers = await inquirer.prompt(internQuestions);
-    const intern = {
-      name: internAnswers.name,
-      id: internAnswers.id,
-      email: internAnswers.email,
-      school: internAnswers.school,
-      role: 'Intern',
-    };
-    teamMembers.push(intern);
+  const html = generateHtml();
 
-    const { addMore }
-
+  fs.writeFile('./dist/team.html', html, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Success!');
+    }
+  });
+};
