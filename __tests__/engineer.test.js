@@ -1,33 +1,40 @@
-const Engineer = require('../lib/Employee');
+const Engineer = require('../lib/Engineer');
 
-test('creates an Employee object', () => {
-  const employee = new Employee('John', 1, 'john@example.com');
+test('creates an Engineer object', () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
 
-  expect(employee.name).toBe('John');
-  expect(employee.id).toEqual(expect.any(Number));
-  expect(employee.email).toEqual(expect.any(String));
+  expect(engineer.name).toBe('John');
+  expect(engineer.id).toEqual(expect.any(Number));
+  expect(engineer.email).toEqual(expect.any(String));
+  expect(engineer.github).toEqual(expect.any(String));
 });
 
-test("gets employee's name", () => {
-  const employee = new Employee('John', 1, 'john@example.com');
+test("gets engineer's name", () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
 
-  expect(employee.getName()).toEqual(expect.any(String));
+  expect(engineer.getName()).toEqual(expect.any(String));
 });
 
-test("gets employee's ID", () => {
-  const employee = new Employee('John', 1, 'john@example.com');
+test("gets engineer's ID", () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
 
-  expect(employee.getId()).toEqual(expect.any(Number));
+  expect(engineer.getId()).toEqual(expect.any(Number));
 });
 
-test("gets employee's email", () => {
-  const employee = new Employee('John', 1, 'john@example.com');
+test("gets engineer's email", () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
 
-  expect(employee.getEmail()).toEqual(expect.any(String));
+  expect(engineer.getEmail()).toEqual(expect.any(String));
 });
 
-test("gets employee's role", () => {
-  const employee = new Employee('John', 1, 'john@example.com');
+test("gets engineer's role", () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
 
-  expect(employee.getEmail()).toEqual(expect.any(String));
+  expect(engineer.getRole()).toEqual('Engineer');
+});
+
+test("gets engineer's GitHub username", () => {
+  const engineer = new Engineer('John', 1, 'john@example.com', 'johngithub');
+
+  expect(engineer.getGithub()).toEqual(expect.any(String));
 });
