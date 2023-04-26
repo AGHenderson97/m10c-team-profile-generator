@@ -1,5 +1,6 @@
 const fs = require('fs');
 const util = require('util');
+const path = require('path');
 let inquirer;
 
 (async () => {
@@ -9,11 +10,9 @@ let inquirer;
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const generateHTML = require('./src/generateHTML');
+const generateHTML = require(path.resolve(__dirname, './src/generateHTML'));
 
 const teamMembers = [];
-
-// ... rest of the code
 
 
 const createManager = async () => {
