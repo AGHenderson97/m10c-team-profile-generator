@@ -1,6 +1,6 @@
 import fs from 'fs';
 import inquirer from 'inquirer';
-import generateMarkdown from './generateMarkdown.mjs';
+import generateMarkdown from './src/generateMarkdown.mjs';
 import Manager from './lib/Manager.js';
 import Engineer from './lib/Engineer.js';
 import Intern from './lib/Intern.js';
