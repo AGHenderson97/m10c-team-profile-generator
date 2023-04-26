@@ -122,6 +122,15 @@ async function createTeam() {
     }
   }
 
+  const markdown = generateMarkdown(employees);
+  fs.writeFile('output/team.md', markdown, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Successfully created team.md in the output folder.');
+    }
+  });
+
   const html = generateHTML(employees);
   fs.writeFile('output/team.html', html, (err) => {
     if (err) {
@@ -133,4 +142,4 @@ async function createTeam() {
 }
 
 createTeam();
-``
+
