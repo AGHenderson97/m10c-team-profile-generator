@@ -106,6 +106,9 @@ async function createIntern() {
 }
 
 async function createTeam() {
+  const teamName = await promptTeamName();
+  console.log(`Creating team: ${teamName}`);
+
   await createManager();
 
   let inProgress = true;
@@ -126,6 +129,7 @@ async function createTeam() {
         break;
       case 'Add Intern':
         await createIntern();
+
         break;
       case 'Finish building my team':
         inProgress = false;
