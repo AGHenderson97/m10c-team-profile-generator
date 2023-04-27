@@ -18,12 +18,15 @@ This is a command-line application that generates a team profile in HTML format.
   
 To use this application, you will need to have Node.js installed on your computer. You can download and install Node.js from the official website: https://nodejs.org/en/download/
 
-Once you have Node.js installed, clone this repository to your local machine and navigate to the project directory in your terminal. Then,  run the following command to install the required dependencies: npm install
+Once you have Node.js installed, clone this repository to your local machine and navigate to the project directory in your terminal. Then,  run the following command to install the required dependencies: 
+npm install
 
   
   ## Usage
   
 To use the application, navigate to the project directory in your terminal and run the following command:
+node --experimental-specifier-resolution=node app.mjs
+
 You will be prompted to enter the name of your team, as well as information about each team member. Once you have entered all of the necessary information, the application will generate an HTML file that displays your team profile. This file will be saved in the 'output' directory.
 
   
