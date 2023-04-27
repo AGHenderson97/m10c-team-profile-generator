@@ -2,7 +2,8 @@
 
  ## Description
   
-  This is a command-line application that dynamically generates a professional README.md file from a user's input using the Inquirer package. The generated README file includes information on the app's purpose, how to use it, how to install it, how to report issues, and how to make contributions. 
+This is a command-line application that generates a team profile in HTML format. It prompts the user for information about their team, such as the team name, the names and roles of team members, and their contact information. It then creates an HTML file that displays the team profile, which can be customized as needed.
+
   
   ## Table of Contents
   
@@ -15,36 +16,32 @@
   
   ## Installation
   
-  To install the necessary dependencies and run the application, use the following commands:
-  
-  \`\`\`
-  npm install
-  node app.js
-  \`\`\`
+To use this application, you will need to have Node.js installed on your computer. You can download and install Node.js from the official website: https://nodejs.org/en/download/
+
+Once you have Node.js installed, clone this repository to your local machine and navigate to the project directory in your terminal. Then,  run the following command to install the required dependencies: npm install
+
   
   ## Usage
   
-  After running the command above, follow the prompts to enter information about your application repository. Once you've completed all the prompts, a high-quality README.md file will be generated in the root directory of your project.
+To use the application, navigate to the project directory in your terminal and run the following command:
+You will be prompted to enter the name of your team, as well as information about each team member. Once you have entered all of the necessary information, the application will generate an HTML file that displays your team profile. This file will be saved in the 'output' directory.
+
   
   ## License
   
-  This application is licensed under the MIT license.
+This application is licensed under the MIT license.
   
   ## Contributing
   
-  Contributions to this project are welcome! To contribute, please fork this repository and create a new pull request.
+Contributions to this project are welcome! To contribute, please fork this repository and create a new pull request.
   
   ## Tests
   
-  To test the application, run the following command:
-  
-  \`\`\`
-  npm test
-  \`\`\`
+To run the tests for this application, navigate to the project directory in your terminal and run the following command: npm run test
   
   ## Questions
   
-  If you have any questions about the repository, open an issue or contact me directly at agh.pe.gatech@outlook.com. You can find more of my work at https://github.com/AGHenderson97.
+If you have any questions about the repository, open an issue or contact me directly at agh.pe.gatech@outlook.com. You can find more of my work at https://github.com/AGHenderson97.
 
 User Story:
 AS A manager
