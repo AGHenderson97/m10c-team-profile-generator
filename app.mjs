@@ -6,6 +6,16 @@ import Engineer from './lib/Engineer.js';
 import Intern from './lib/Intern.js';
 import generateHTML from './src/generateHTML.mjs';
 
+const promptTeamName = async () => {
+  const { teamName } = await inquirer.prompt({
+    type: 'input',
+    message: "What is your team's name?",
+    name: 'teamName',
+  });
+
+  return teamName;
+};
+
 const employees = [];
 
 async function createManager() {
@@ -96,6 +106,9 @@ async function createIntern() {
 }
 
 async function createTeam() {
+  const teamName = await promptTeamName();
+  console.log(`Creating team: ${teamName}`);
+
   await createManager();
 
   let inProgress = true;
@@ -116,6 +129,7 @@ async function createTeam() {
         break;
       case 'Add Intern':
         await createIntern();
+
         break;
       case 'Finish building my team':
         inProgress = false;
