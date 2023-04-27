@@ -6,6 +6,16 @@ import Engineer from './lib/Engineer.js';
 import Intern from './lib/Intern.js';
 import generateHTML from './src/generateHTML.mjs';
 
+const promptTeamName = async () => {
+  const { teamName } = await inquirer.prompt({
+    type: 'input',
+    message: "What is your team's name?",
+    name: 'teamName',
+  });
+
+  return teamName;
+};
+
 const employees = [];
 
 async function createManager() {
