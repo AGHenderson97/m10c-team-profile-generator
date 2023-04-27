@@ -1,17 +1,14 @@
-/* Body */
 body {
     font-family: sans-serif;
     background-color: #f8f8f8;
     padding: 20px;
   }
   
-  /* Container */
   .container {
     max-width: 800px;
     margin: 0 auto;
   }
   
-  /* Cards */
   .card {
     background-color: white;
     border-radius: 5px;
